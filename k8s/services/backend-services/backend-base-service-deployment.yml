@@ -75,6 +75,11 @@ spec:
                 configMapKeyRef:
                   name: keycloak-config
                   key: KEYCLOAK_BACKEND_CLIENT_ID
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: platform-secrets
+                  key: GITHUB_TOKEN
 
 ---
 apiVersion: v1
