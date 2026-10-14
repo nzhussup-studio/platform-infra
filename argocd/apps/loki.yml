@@ -20,6 +20,21 @@ spec:
           replicas: 1
           persistence: { enabled: true, size: 10Gi }
           resources: { requests: { cpu: 100m, memory: 256Mi }, limits: { cpu: 500m, memory: 512Mi } }
+        # Disable every scalable/distributed component: this deployment is monolithic.
+        backend: { replicas: 0 }
+        read: { replicas: 0 }
+        write: { replicas: 0 }
+        ingester: { replicas: 0 }
+        querier: { replicas: 0 }
+        queryFrontend: { replicas: 0 }
+        queryScheduler: { replicas: 0 }
+        distributor: { replicas: 0 }
+        compactor: { replicas: 0 }
+        indexGateway: { replicas: 0 }
+        ruler: { replicas: 0 }
+        bloomPlanner: { replicas: 0 }
+        bloomBuilder: { replicas: 0 }
+        bloomGateway: { replicas: 0 }
         loki:
           # A single local PVC is sufficient for this lightweight, non-HA deployment.
           auth_enabled: false
