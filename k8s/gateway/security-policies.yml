@@ -46,5 +46,46 @@ spec:
             header: x-user-name
           - claim: email
             header: x-user-email
-          - claim: realm_access.roles
-            header: x-user-roles
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: api-admin-jwt
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: api-admin
+  cors:
+    allowOrigins:
+      - https://nzhussup.dev
+      - https://admin.nzhussup.dev
+    allowCredentials: true
+    allowMethods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
+    allowHeaders: [Authorization, Content-Type, Accept, Origin, Cache-Control, X-Requested-With]
+  jwt:
+    providers:
+      - name: keycloak
+        issuer: https://auth.nzhussup.dev/realms/backend-auth
+        audiences: [backend-auth-client]
+        remoteJWKS:
+          uri: https://auth.nzhussup.dev/realms/backend-auth/protocol/openid-connect/certs
+        claimToHeaders:
+          - claim: sub
+            header: x-user-id
+          - claim: preferred_username
+            header: x-user-name
+          - claim: email
+            header: x-user-email
+  authorization:
+    defaultAction: Deny
+    rules:
+      - name: allow-admins
+        action: Allow
+        principal:
+          jwt:
+            provider: keycloak
+            claims:
+              - name: realm_access.roles
+                valueType: StringArray
+                values: [ROLE_ADMIN]

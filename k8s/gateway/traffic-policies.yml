@@ -23,6 +23,9 @@ spec:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: api-protected
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: api-admin
   rateLimit:
     local:
       rules:
