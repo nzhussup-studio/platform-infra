@@ -25,10 +25,6 @@ kubectl apply -f argocd/root-app.yml
 | [config](https://argocd.nzhussup.dev/applications/config) | ![config status](https://argocd.nzhussup.dev/api/badge?name=config) |
 | [https-encryption](https://argocd.nzhussup.dev/applications/https-encryption) | ![https-encryption status](https://argocd.nzhussup.dev/api/badge?name=https-encryption) |
 | [persistence](https://argocd.nzhussup.dev/applications/persistence) | ![persistence status](https://argocd.nzhussup.dev/api/badge?name=persistence) |
-| [monitoring-crds](https://argocd.nzhussup.dev/applications/monitoring-crds) | ![monitoring-crds status](https://argocd.nzhussup.dev/api/badge?name=monitoring-crds) |
-| [monitoring-stack](https://argocd.nzhussup.dev/applications/monitoring-stack) | ![monitoring-stack status](https://argocd.nzhussup.dev/api/badge?name=monitoring-stack) |
-| [monitoring-addons](https://argocd.nzhussup.dev/applications/monitoring-addons) | ![monitoring-addons status](https://argocd.nzhussup.dev/api/badge?name=monitoring-addons) |
-| [logging](https://argocd.nzhussup.dev/applications/logging) | ![logging status](https://argocd.nzhussup.dev/api/badge?name=logging) |
 
 </div>
 
@@ -38,8 +34,6 @@ kubectl apply -f argocd/root-app.yml
 [![Argo_CD](https://img.shields.io/badge/Argo%20CD-GitOps-EF7B4D?style=for-the-badge&logo=argo&logoColor=white)](https://argo-cd.readthedocs.io/)
 [![Keycloak](https://img.shields.io/badge/Keycloak-IAM-4D4D4D?style=for-the-badge&logo=keycloak&logoColor=white)](https://www.keycloak.org/)
 [![Redis](https://img.shields.io/badge/Redis-cache-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
-[![Prometheus](https://img.shields.io/badge/Prometheus-monitoring-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)](https://prometheus.io/)
-[![Grafana](https://img.shields.io/badge/Grafana-dashboards-F46800?style=for-the-badge&logo=grafana&logoColor=white)](https://grafana.com/)
 [![Envoy](https://img.shields.io/badge/Envoy-Gateway-AC6199?style=for-the-badge&logo=envoyproxy&logoColor=white)](https://gateway.envoyproxy.io/)
 [![Let's_Encrypt](https://img.shields.io/badge/Let%27s%20Encrypt-TLS-003A70?style=for-the-badge&logo=letsencrypt&logoColor=white)](https://letsencrypt.org/)
 [![GitHub_Actions](https://img.shields.io/badge/GitHub%20Actions-release%20automation-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/features/actions)
@@ -75,8 +69,6 @@ The repository currently centers on:
 - Envoy Gateway and Kubernetes Gateway API
 - Let's Encrypt and cert-manager based TLS setup
 - Argo CD GitOps application orchestration
-- Prometheus-based cluster and service metrics collection
-- Grafana dashboards and monitoring ingress
 - shell scripts for local and server-side operational tasks
 - GitHub Actions for release automation
 
@@ -88,7 +80,6 @@ The repository currently centers on:
 │   ├── services/              # Service and deployment manifests
 │   ├── gateway/              # Gateway API routes and traffic policies
 │   ├── https-encryption/     # TLS and certificate configuration
-│   ├── logging/              # Centralized logging stack manifests
 │   ├── persistence/          # Persistent volume definitions
 │   └── discontinued-services/# Archived or no longer active manifests
 ├── docs/                     # Supporting operational documentation
@@ -130,10 +121,6 @@ To use this repository effectively, the following tools or environments are expe
 | `Envoy Gateway`   | External routing, authentication, and policies  | `k8s/gateway/`                                                         |
 | `Let's Encrypt`   | TLS issuer and certificate automation          | `k8s/https-encryption/`                                                |
 | `Redis`           | Shared cache/runtime dependency                | `k8s/services/backend-services/backend-redis-server-deployment.yml`    |
-| `Prometheus`      | Cluster and workload metrics collection        | `k8s/monitoring/kube-prometheus/release-0.17/stack/`                   |
-| `Grafana`         | Monitoring dashboards and visualization        | `k8s/monitoring/kube-prometheus/release-0.17/stack/`                   |
-| `Loki`            | Centralized log storage and query backend      | `k8s/logging/loki/`                                                     |
-| `Fluent Bit`      | Node-level pod log collection and forwarding   | `k8s/logging/fluent-bit/`                                               |
 | `Keycloak`        | IAM, realm import, and auth runtime            | `k8s/services/backend-services/backend-keycloak-server-deployment.yml` |
 | `API Docs`        | Static unified Swagger UI                     | `k8s/services/backend-services/backend-api-docs-deployment.yml`        |
 | `Base Service`    | Core application backend service               | `k8s/services/backend-services/backend-base-service-deployment.yml`    |
