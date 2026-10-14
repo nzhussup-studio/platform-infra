@@ -1,0 +1,80 @@
+%%{init: {"theme":"base", "themeVariables":{"fontFamily":"Inter, Segoe UI, Arial, sans-serif", "primaryColor":"#f5f8fb", "primaryTextColor":"#172536", "primaryBorderColor":"#8b9aab", "lineColor":"#53657a", "tertiaryColor":"#f7f9fb"}, "flowchart":{"curve":"stepAfter", "nodeSpacing":48, "rankSpacing":64}}}%%
+flowchart TB
+  visitors["USERS & API CLIENTS<br/>Browser · HTTPS"] --> gateway["EDGE · TLS<br/>Envoy Gateway<br/>Gateway API · routes · policies"]
+
+  subgraph cluster["KUBERNETES CLUSTER · ARGO CD MANAGED"]
+    direction TB
+
+    subgraph web["WEB APPLICATIONS"]
+      direction TB
+      web_routes["HTTPRoute · web hosts"]
+      portfolio["Web Portfolio<br/>nzhussup.dev · :8000"]
+      admin["Web Admin Panel<br/>admin.nzhussup.dev · :8020"]
+      web_routes --> portfolio
+      web_routes --> admin
+    end
+
+    subgraph api["BACKEND API · api.nzhussup.dev"]
+      direction TB
+      api_routes["HTTPRoute · API paths"]
+
+      subgraph base_row["BASE SERVICE"]
+        direction LR
+        base["Base Service<br/>/v1/base · :8010"] --> base_dependencies["Redis<br/>PostgreSQL<br/>GitHub API"]
+      end
+      subgraph image_row["IMAGE SERVICE"]
+        direction LR
+        image["Image Service<br/>/v1/album · :8085"] --> image_dependencies["Redis · shared cache<br/>Image PV"]
+      end
+      subgraph llm_row["LLM SERVICE"]
+        direction LR
+        llm["LLM Service<br/>/v1/llm · :8086"] --> llm_dependencies["Configured LLM provider"]
+      end
+      subgraph account_row["ACCOUNT SERVICE"]
+        direction LR
+        account["Account Service<br/>/v1/account · :8087"] --> account_dependencies["Keycloak"]
+      end
+
+      api_routes --> base
+      api_routes --> image
+      api_routes --> llm
+      api_routes --> account
+    end
+
+    subgraph platform["IDENTITY · OPERATIONS · SHARED SERVICES"]
+      direction TB
+      ops_routes["HTTPRoute · platform websites"]
+      subgraph keycloak_row["IDENTITY"]
+        direction LR
+        keycloak["Keycloak<br/>auth.nzhussup.dev · :8080"] --> keycloak_dependencies["PostgreSQL"]
+      end
+      api_docs["API Docs<br/>/docs · :8080"]
+      argocd["Argo CD<br/>argocd.nzhussup.dev"]
+      monitoring["Monitoring<br/>monitoring.nzhussup.dev"]
+      ops_routes --> keycloak
+      ops_routes --> api_docs
+      ops_routes --> argocd
+      ops_routes --> monitoring
+    end
+
+    gateway --> web_routes
+    gateway --> api_routes
+    gateway --> ops_routes
+
+  end
+
+  classDef ingress fill:#eaf2ff,stroke:#3977ad,stroke-width:2px,color:#102a43
+  classDef route fill:#f2f6fa,stroke:#8094a8,stroke-dasharray:4 3,color:#34465a
+  classDef webNode fill:#f1f7fc,stroke:#5790be,color:#17324d
+  classDef backendNode fill:#edf7f4,stroke:#4c9185,color:#173d38
+  classDef platformNode fill:#ffffff,stroke:#9aa9b8,color:#233243
+  classDef opsNode fill:#f1f7fc,stroke:#5790be,color:#17324d
+  classDef dependencyNode fill:#f8fafc,stroke:#a4b1bf,color:#34465a
+  class visitors,gateway ingress
+  class web_routes,api_routes,ops_routes route
+  class portfolio,admin webNode
+  class base,image,llm,account backendNode
+  class keycloak,api_docs platformNode
+  class argocd,monitoring opsNode
+  class base_dependencies,image_dependencies,llm_dependencies,account_dependencies,keycloak_dependencies dependencyNode
+  linkStyle default stroke:#53657a,stroke-width:1.6px
