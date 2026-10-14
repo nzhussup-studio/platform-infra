@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/nzhussup/server-infra/compare/v1.8.0...v2.0.0) (2026-10-14)
+
+
+### Features
+
+* add arch diagram ([d12d3f7](https://github.com/nzhussup/server-infra/commit/d12d3f7440df3c7cf9d983751a74391f07a69b7e))
+* add full node exporter dashboard ([b4b37e7](https://github.com/nzhussup/server-infra/commit/b4b37e7084bc3ce46c37dde13b99557cfbff62a1))
+* add github token reference to base-service ([540eb15](https://github.com/nzhussup/server-infra/commit/540eb158cb3b6dd99bd0adfeb5f0ef92246cfc37))
+* add log monitoring ([0faed85](https://github.com/nzhussup/server-infra/commit/0faed8576b2e66ba8431eaba3b13e8acbf931305))
+* add logs explorer dashboard ([fb11879](https://github.com/nzhussup/server-infra/commit/fb1187933db1c41557b6c0ddbf73a5ed456ba90c))
+* tighten memory and cpu usage for java services ([bfc1712](https://github.com/nzhussup/server-infra/commit/bfc171245b3d43ad69c5d6831229794e13ce5e2d))
+
+
+### Bug Fixes
+
+* fs error on grafana ([3f0235a](https://github.com/nzhussup/server-infra/commit/3f0235a23ca2ad878f5e151cbd5f42f48aee4378))
+* fs error on grafana ([69d29d4](https://github.com/nzhussup/server-infra/commit/69d29d4233e8f0c64f8f6c63402f199c2502b311))
+* https routing to gateway ([ae6a0ec](https://github.com/nzhussup/server-infra/commit/ae6a0ec8fcb7c43a92fe2ad643149479c11513ea))
+* increase memory limits on image service to avoid OOMKilled ([622467a](https://github.com/nzhussup/server-infra/commit/622467a6fe0985350fdaa4f136ad62f33c9852ae))
+* logs dashboard ([e0875ca](https://github.com/nzhussup/server-infra/commit/e0875caacc246e06e2d5c9499df6496c1c10d39a))
+* logs dashboard ([471564b](https://github.com/nzhussup/server-infra/commit/471564b96cf094dbd2ef1d247faa9f1276df1c58))
+* logs dashboard ([a46b73a](https://github.com/nzhussup/server-infra/commit/a46b73a6cb0914dc77c71b39ab13ef9f3f7b4973))
+* loki definition ([4a1698b](https://github.com/nzhussup/server-infra/commit/4a1698b75847e5168ac72995cd9c40b9b0e8ade2))
+* loki definition ([04e2c76](https://github.com/nzhussup/server-infra/commit/04e2c763308c509db88353f9ee29baa1b50459ab))
+* loki definition ([142d8d8](https://github.com/nzhussup/server-infra/commit/142d8d8f4570ab0eb06ee901a83fbde8e8ed93bf))
+* move project yml to apps to track changes ([82d765b](https://github.com/nzhussup/server-infra/commit/82d765b30e9819f3a54fa1300538aa1402c2735a))
+* move project yml to apps to track changes ([f566d08](https://github.com/nzhussup/server-infra/commit/f566d086bae4a4c59c2e3b1c1ede454d9ab50172))
+* tls secrets ([1d1e4ff](https://github.com/nzhussup/server-infra/commit/1d1e4ff1c14cf5d19a8a072e3d9cb426efc74fb7))
+* tls secrets ([c0bd452](https://github.com/nzhussup/server-infra/commit/c0bd452bacc023b17cb2224991e23160cbeca5ca))
+* too many outstanding requests ([d329e92](https://github.com/nzhussup/server-infra/commit/d329e92c02844c1bd6f889442ab0c4db8d044037))
+* too many outstanding requests ([0f460ce](https://github.com/nzhussup/server-infra/commit/0f460cecb151b81788c8bed85803aa1f17b49b90))
+* too many outstanding requests ([138b91c](https://github.com/nzhussup/server-infra/commit/138b91ce74956efde83c1f07eb97bad1207fb9d2))
+
 ## [1.8.0](https://github.com/nzhussup/server-infra/compare/v1.7.0...v1.8.0) (2026-04-03)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "server-infra",
-  "version": "1.8.0",
+  "version": "2.0.0",
   "description": "This repository contains Kubernetes configuration files for managing deployments on my master server. My master server is itself a worker server because I'm too broke to aford EKS by AWS or any other service 😭",
   "main": "index.js",
   "scripts": {
