@@ -20,3 +20,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    # The custom Grafana dashboard exceeds the client-side apply annotation limit.
+    syncOptions:
+      - ServerSideApply=true
