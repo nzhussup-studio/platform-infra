@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+  annotations:
+    # Installs Certificate APIs before issuers and Gateway TLS certificates.
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: platform-infra
+  source:
+    repoURL: https://charts.jetstack.io
+    chart: cert-manager
+    targetRevision: v1.14.4
+    helm:
+      releaseName: cert-manager
+      valuesObject:
+        installCRDs: true
+        extraArgs:
+          - --feature-gates=ExperimentalGatewayAPISupport=true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

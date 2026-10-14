@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: public-gateway-tls
+  namespace: default
+spec:
+  secretName: default-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - nzhussup.dev
+    - api.nzhussup.dev
+    - admin.nzhussup.dev
+    - auth.nzhussup.dev
+    - study.nzhussup.dev
+    - sabina.valentine.nzhussup.dev
+    - argocd.nzhussup.dev
+    - monitoring.nzhussup.dev

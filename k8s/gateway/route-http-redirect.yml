@@ -13,6 +13,8 @@ spec:
     - auth.nzhussup.dev
     - study.nzhussup.dev
     - sabina.valentine.nzhussup.dev
+    - argocd.nzhussup.dev
+    - monitoring.nzhussup.dev
   rules:
     - filters:
         - type: RequestRedirect

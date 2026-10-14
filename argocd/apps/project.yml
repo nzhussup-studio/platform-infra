@@ -17,12 +17,11 @@ spec:
   sourceRepos:
     - 'https://github.com/nzhussup-studio/platform-infra.git'
     - 'registry-1.docker.io/envoyproxy'
+    - 'https://charts.jetstack.io'
   destinations:
     - namespace: default
       server: https://kubernetes.default.svc
     - namespace: argocd
-      server: https://kubernetes.default.svc
-    - namespace: ingress-nginx
       server: https://kubernetes.default.svc
     - namespace: envoy-gateway-system
       server: https://kubernetes.default.svc

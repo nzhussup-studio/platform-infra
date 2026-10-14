@@ -10,5 +10,10 @@ spec:
       name: letsencrypt-prod-key
     solvers:
       - http01:
-          ingress:
-            class: nginx
+          gatewayHTTPRoute:
+            serviceType: ClusterIP
+            parentRefs:
+              - name: public-gateway
+                namespace: default
+                kind: Gateway
+                sectionName: http
