@@ -5,32 +5,13 @@ set -euo pipefail
 #   ./generate-grafana-custom-dashboard-configmap.sh [SOURCE_DIR] [OUT_FILE]
 #
 # Optional env vars:
-#   CM_NAME, NAMESPACE, MONITORING_DIR, OUT_FILE
+#   CM_NAME, NAMESPACE, OUT_FILE
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_DIR="${1:-$SCRIPT_DIR}"
 SOURCE_DIR="$(cd "$SOURCE_DIR" && pwd)"
 
-if [[ -z "${MONITORING_DIR:-}" ]]; then
-  for candidate in \
-    "$SCRIPT_DIR/../monitoring" \
-    "$SCRIPT_DIR/../../k8s/monitoring" \
-    "$SCRIPT_DIR/../../monitoring"
-  do
-    if [[ -d "$candidate/kube-prometheus/release-0.17/stack" ]]; then
-      MONITORING_DIR="$(cd "$candidate" && pwd)"
-      break
-    fi
-  done
-fi
-
-if [[ -z "${MONITORING_DIR:-}" ]]; then
-  echo "Could not resolve MONITORING_DIR. Set MONITORING_DIR env var explicitly." >&2
-  exit 1
-fi
-
-STACK_DIR="$MONITORING_DIR/kube-prometheus/release-0.17/stack"
-DEFAULT_OUT_FILE="$STACK_DIR/grafana-dashboard-custom.yaml"
+DEFAULT_OUT_FILE="$SCRIPT_DIR/../monitoring/addons/dashboards/grafana-dashboard-custom.yaml"
 OUT_FILE="${2:-${OUT_FILE:-$DEFAULT_OUT_FILE}}"
 CM_NAME="${CM_NAME:-grafana-dashboard-custom}"
 NAMESPACE="${NAMESPACE:-monitoring}"
@@ -47,10 +28,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    app.kubernetes.io/component: grafana
-    app.kubernetes.io/name: grafana
-    app.kubernetes.io/part-of: kube-prometheus
-    app.kubernetes.io/version: 12.4.1
+    grafana_dashboard: "1"
   name: ${CM_NAME}
   namespace: ${NAMESPACE}
 YAML

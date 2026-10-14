@@ -12,5 +12,5 @@ spec:
     - monitoring.nzhussup.dev
   rules:
     - backendRefs:
-        - name: grafana
+        - name: monitoring-grafana
           port: 3000

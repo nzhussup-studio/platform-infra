@@ -5,6 +5,9 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "0"
+    # Let Kubernetes apply API defaults during comparison, preventing false drift
+    # from defaulted Gateway API and Envoy Gateway fields.
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
 spec:
   project: platform-infra
   source:
