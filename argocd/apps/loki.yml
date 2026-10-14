@@ -41,6 +41,7 @@ spec:
         chunksCache: { enabled: false }
         resultsCache: { enabled: false }
         lokiCanary: { enabled: false }
+        test: { enabled: false }
   destination: { server: "https://kubernetes.default.svc", namespace: monitoring }
   syncPolicy:
     automated: { prune: true, selfHeal: true }
