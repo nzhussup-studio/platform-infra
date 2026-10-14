@@ -27,6 +27,10 @@ spec:
         certificateRefs:
           - kind: Secret
             name: default-tls
+          # Retain the current certificate while cert-manager issues the
+          # replacement containing every public hostname.
+          - kind: Secret
+            name: public-gateway-tls
       allowedRoutes:
         namespaces:
           from: All

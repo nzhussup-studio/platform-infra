@@ -4,7 +4,8 @@ metadata:
   name: public-gateway-tls
   namespace: default
 spec:
-  secretName: default-tls
+  # Do not share a target Secret with the legacy Certificate.
+  secretName: public-gateway-tls
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
