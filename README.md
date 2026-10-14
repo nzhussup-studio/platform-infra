@@ -1,5 +1,17 @@
 # Platform Infrastructure
 
+## Argo CD bootstrap
+
+The `platform-infra` AppProject must exist before applying `platform-root`, because
+the root application belongs to that project. Bootstrap it once, then Argo CD keeps
+the project reconciled from `argocd/apps/project.yml` alongside all child applications.
+
+```bash
+kubectl apply -f argocd/namespace.yml
+kubectl apply -f argocd/apps/project.yml
+kubectl apply -f argocd/root-app.yml
+```
+
 ### Argo CD Live Status
 
 <div align="center">
