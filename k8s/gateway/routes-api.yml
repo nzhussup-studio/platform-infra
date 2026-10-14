@@ -1,0 +1,93 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: api-public
+spec:
+  parentRefs: [{ name: public-gateway, sectionName: https }]
+  hostnames: [api.nzhussup.dev]
+  rules:
+    - matches:
+        - path: { type: Exact, value: / }
+      filters:
+        - type: RequestRedirect
+          requestRedirect:
+            path: { type: ReplaceFullPath, replaceFullPath: /docs/ }
+            statusCode: 301
+    - matches:
+        - method: OPTIONS
+          path: { type: PathPrefix, value: /v1 }
+      backendRefs: [{ name: backend-base-service, port: 8010 }]
+    - matches:
+        - path: { type: PathPrefix, value: /docs }
+      backendRefs: [{ name: backend-api-docs, port: 8080 }]
+    - matches:
+        - method: GET
+          path: { type: PathPrefix, value: /v1/base }
+      backendRefs: [{ name: backend-base-service, port: 8010 }]
+    - matches:
+        - method: GET
+          path: { type: PathPrefix, value: /v1/album }
+      backendRefs: [{ name: backend-image-service, port: 8085 }]
+    - matches:
+        - method: GET
+          path: { type: Exact, value: /v1/llm/health }
+        - method: GET
+          path: { type: PathPrefix, value: /v1/llm/docs }
+        - method: GET
+          path: { type: Exact, value: /v1/llm/summarize }
+      backendRefs: [{ name: backend-llm-service, port: 8086 }]
+    - matches:
+        - path: { type: PathPrefix, value: /v1/account/health }
+        - path: { type: PathPrefix, value: /v1/account/docs }
+      backendRefs: [{ name: backend-account-service, port: 8087 }]
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: api-protected
+spec:
+  parentRefs: [{ name: public-gateway, sectionName: https }]
+  hostnames: [api.nzhussup.dev]
+  rules:
+    - matches:
+        - path: { type: PathPrefix, value: /v1/base/cv-generator-preference }
+        - method: POST
+          path: { type: PathPrefix, value: /v1/base }
+        - method: PUT
+          path: { type: PathPrefix, value: /v1/base }
+        - method: DELETE
+          path: { type: PathPrefix, value: /v1/base }
+      backendRefs: [{ name: backend-base-service, port: 8010 }]
+      timeouts: { request: 10m, backendRequest: 10m }
+    - matches:
+        - method: GET
+          path: { type: PathPrefix, value: /v1/album }
+          queryParams: [{ name: type, value: all }]
+        - method: GET
+          path: { type: PathPrefix, value: /v1/album }
+          queryParams: [{ name: type, value: private }]
+        - method: GET
+          path: { type: PathPrefix, value: /v1/album }
+          queryParams: [{ name: type, value: semi-public }]
+        - method: POST
+          path: { type: PathPrefix, value: /v1/album }
+        - method: PUT
+          path: { type: PathPrefix, value: /v1/album }
+        - method: PATCH
+          path: { type: PathPrefix, value: /v1/album }
+        - method: DELETE
+          path: { type: PathPrefix, value: /v1/album }
+      backendRefs: [{ name: backend-image-service, port: 8085 }]
+      timeouts: { request: 10m, backendRequest: 10m }
+    - matches:
+        - path: { type: PathPrefix, value: /v1/llm/configuration }
+      backendRefs: [{ name: backend-llm-service, port: 8086 }]
+      timeouts: { request: 10m, backendRequest: 10m }
+    - matches:
+        - method: PUT
+          path: { type: PathPrefix, value: /v1/llm }
+      backendRefs: [{ name: backend-llm-service, port: 8086 }]
+      timeouts: { request: 10m, backendRequest: 10m }
+    - matches:
+        - path: { type: PathPrefix, value: /v1/account }
+      backendRefs: [{ name: backend-account-service, port: 8087 }]

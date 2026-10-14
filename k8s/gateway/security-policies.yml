@@ -1,0 +1,50 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: api-public-cors
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: api-public
+  cors:
+    allowOrigins:
+      - https://nzhussup.dev
+      - https://admin.nzhussup.dev
+    allowCredentials: true
+    allowMethods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
+    allowHeaders: [Authorization, Content-Type, Accept, Origin, Cache-Control, X-Requested-With]
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: api-protected-jwt
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: api-protected
+  cors:
+    allowOrigins:
+      - https://nzhussup.dev
+      - https://admin.nzhussup.dev
+    allowCredentials: true
+    allowMethods: [GET, POST, PUT, PATCH, DELETE, OPTIONS]
+    allowHeaders: [Authorization, Content-Type, Accept, Origin, Cache-Control, X-Requested-With]
+  jwt:
+    providers:
+      - name: keycloak
+        issuer: https://auth.nzhussup.dev/realms/backend-auth
+        audiences:
+          - backend-auth-client
+        remoteJWKS:
+          uri: https://auth.nzhussup.dev/realms/backend-auth/protocol/openid-connect/certs
+        claimToHeaders:
+          - claim: sub
+            header: x-user-id
+          - claim: preferred_username
+            header: x-user-name
+          - claim: email
+            header: x-user-email
+          - claim: realm_access.roles
+            header: x-user-roles

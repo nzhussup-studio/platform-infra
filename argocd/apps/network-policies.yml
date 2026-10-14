@@ -1,14 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress
+  name: network-policies
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: platform-infra
   source:
     repoURL: https://github.com/nzhussup-studio/platform-infra.git
     targetRevision: main
-    path: k8s/ingress
+    path: k8s/network-policies
   destination:
     server: https://kubernetes.default.svc
     namespace: default

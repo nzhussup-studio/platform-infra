@@ -54,11 +54,6 @@ spec:
                 secretKeyRef:
                   name: keycloak-secrets
                   key: KEYCLOAK_ACCOUNT_SERVICE_ADMIN_CLIENT_SECRET
-            - name: KEYCLOAK_JWK_SET_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: keycloak-config
-                  key: KEYCLOAK_JWK_SET_URL
 
 ---
 apiVersion: v1

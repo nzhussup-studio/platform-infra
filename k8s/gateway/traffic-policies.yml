@@ -1,0 +1,31 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: api-public-traffic
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: api-public
+  rateLimit:
+    local:
+      rules:
+        - limit:
+            requests: 20
+            unit: Second
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: api-protected-traffic
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: api-protected
+  rateLimit:
+    local:
+      rules:
+        - limit:
+            requests: 20
+            unit: Second

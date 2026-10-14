@@ -37,11 +37,8 @@ spec:
                 configMapKeyRef:
                   name: platform-config
                   key: REDIS_PORT
-            - name: NGINX_GATEWAY_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: nginx-gateway-config
-                  key: NGINX_GATEWAY_URL
+            - name: BASE_SERVICE_URL
+              value: http://backend-base-service.default.svc.cluster.local:8010
             - name: OPENROUTER_API_KEY
               valueFrom:
                 secretKeyRef:

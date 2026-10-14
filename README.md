@@ -8,7 +8,8 @@
 | --- | --- |
 | [platform-root](https://argocd.nzhussup.dev/applications/platform-root) | ![platform-root status](https://argocd.nzhussup.dev/api/badge?name=platform-root) |
 | [services](https://argocd.nzhussup.dev/applications/services) | ![services status](https://argocd.nzhussup.dev/api/badge?name=services) |
-| [ingress](https://argocd.nzhussup.dev/applications/ingress) | ![ingress status](https://argocd.nzhussup.dev/api/badge?name=ingress) |
+| [gateway](https://argocd.nzhussup.dev/applications/gateway) | ![gateway status](https://argocd.nzhussup.dev/api/badge?name=gateway) |
+| [envoy-gateway-controller](https://argocd.nzhussup.dev/applications/envoy-gateway-controller) | ![envoy-gateway-controller status](https://argocd.nzhussup.dev/api/badge?name=envoy-gateway-controller) |
 | [config](https://argocd.nzhussup.dev/applications/config) | ![config status](https://argocd.nzhussup.dev/api/badge?name=config) |
 | [https-encryption](https://argocd.nzhussup.dev/applications/https-encryption) | ![https-encryption status](https://argocd.nzhussup.dev/api/badge?name=https-encryption) |
 | [persistence](https://argocd.nzhussup.dev/applications/persistence) | ![persistence status](https://argocd.nzhussup.dev/api/badge?name=persistence) |
@@ -27,7 +28,7 @@
 [![Redis](https://img.shields.io/badge/Redis-cache-DC382D?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
 [![Prometheus](https://img.shields.io/badge/Prometheus-monitoring-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)](https://prometheus.io/)
 [![Grafana](https://img.shields.io/badge/Grafana-dashboards-F46800?style=for-the-badge&logo=grafana&logoColor=white)](https://grafana.com/)
-[![NGINX](https://img.shields.io/badge/NGINX-Ingress-009639?style=for-the-badge&logo=nginx&logoColor=white)](https://nginx.org/)
+[![Envoy](https://img.shields.io/badge/Envoy-Gateway-AC6199?style=for-the-badge&logo=envoyproxy&logoColor=white)](https://gateway.envoyproxy.io/)
 [![Let's_Encrypt](https://img.shields.io/badge/Let%27s%20Encrypt-TLS-003A70?style=for-the-badge&logo=letsencrypt&logoColor=white)](https://letsencrypt.org/)
 [![GitHub_Actions](https://img.shields.io/badge/GitHub%20Actions-release%20automation-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/features/actions)
 [![Shell](https://img.shields.io/badge/Shell-automation-89E051?style=for-the-badge&logo=gnubash&logoColor=black)](https://www.gnu.org/software/bash/)
@@ -48,7 +49,7 @@ Current routing model:
 The project serves as the infrastructure layer for the wider platform. It is used to:
 
 - manage Kubernetes manifests for deployed services
-- configure ingress and external routing
+- configure Gateway API resources and external routing
 - handle HTTPS termination and certificate issuance
 - define persistent storage used by stateful workloads
 - document operational setup steps that are not part of application repositories
@@ -59,7 +60,7 @@ The repository currently centers on:
 
 - Kubernetes manifests for runtime configuration
 - k3s-compatible deployment structure
-- NGINX Ingress configuration
+- Envoy Gateway and Kubernetes Gateway API
 - Let's Encrypt and cert-manager based TLS setup
 - Argo CD GitOps application orchestration
 - Prometheus-based cluster and service metrics collection
@@ -73,7 +74,7 @@ The repository currently centers on:
 .
 ├── k8s/
 │   ├── services/              # Service and deployment manifests
-│   ├── ingress/              # Ingress controller and routing rules
+│   ├── gateway/              # Gateway API routes and traffic policies
 │   ├── https-encryption/     # TLS and certificate configuration
 │   ├── logging/              # Centralized logging stack manifests
 │   ├── persistence/          # Persistent volume definitions
@@ -87,7 +88,7 @@ The repository currently centers on:
 
 ### Kubernetes Manifests
 
-The `k8s/` directory contains the deployment-related resources used on the target cluster. This includes ingress resources, TLS configuration, persistence definitions, and service-specific manifests.
+The `k8s/` directory contains the deployment-related resources used on the target cluster. This includes Gateway API resources, TLS configuration, persistence definitions, and service-specific manifests.
 
 Infrastructure runtimes such as Redis are also defined here at manifest level instead of being built as custom application images.
 
@@ -114,7 +115,7 @@ To use this repository effectively, the following tools or environments are expe
 
 | Service           | Role                                           | Main Location                                                          |
 | ----------------- | ---------------------------------------------- | ---------------------------------------------------------------------- |
-| `NGINX Ingress`   | External routing and ingress controller config | `k8s/ingress/`                                                         |
+| `Envoy Gateway`   | External routing, authentication, and policies  | `k8s/gateway/`                                                         |
 | `Let's Encrypt`   | TLS issuer and certificate automation          | `k8s/https-encryption/`                                                |
 | `Redis`           | Shared cache/runtime dependency                | `k8s/services/backend-services/backend-redis-server-deployment.yml`    |
 | `Prometheus`      | Cluster and workload metrics collection        | `k8s/monitoring/kube-prometheus/release-0.17/stack/`                   |
@@ -122,7 +123,7 @@ To use this repository effectively, the following tools or environments are expe
 | `Loki`            | Centralized log storage and query backend      | `k8s/logging/loki/`                                                     |
 | `Fluent Bit`      | Node-level pod log collection and forwarding   | `k8s/logging/fluent-bit/`                                               |
 | `Keycloak`        | IAM, realm import, and auth runtime            | `k8s/services/backend-services/backend-keycloak-server-deployment.yml` |
-| `NGINX Gateway`   | Backend API entrypoint and path router         | `k8s/services/backend-services/backend-nginx-gateway-deployment.yml`   |
+| `API Docs`        | Static unified Swagger UI                     | `k8s/services/backend-services/backend-api-docs-deployment.yml`        |
 | `Base Service`    | Core application backend service               | `k8s/services/backend-services/backend-base-service-deployment.yml`    |
 | `Image Service`   | Backend image/media service                    | `k8s/services/backend-services/backend-image-service-deployment.yml`   |
 | `LLM Service`     | Backend LLM integration service                | `k8s/services/backend-services/backend-llm-service-deployment.yml`     |

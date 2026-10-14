@@ -29,9 +29,6 @@ data:
   KEYCLOAK_FRONTEND_REDIRECT_URIS_JSON: '["https://admin.nzhussup.dev/*","https://admin.nzhussup.com/*","https://nzhussup.dev/*","https://nzhussup.com/*"]'
   KEYCLOAK_FRONTEND_WEB_ORIGINS_JSON: '["https://admin.nzhussup.dev","https://admin.nzhussup.com","https://nzhussup.dev","https://nzhussup.com"]'
 
-  KEYCLOAK_JWK_SET_URI: https://auth.nzhussup.dev/realms/backend-auth/protocol/openid-connect/certs
-  KEYCLOAK_JWK_SET_URL: https://auth.nzhussup.dev/realms/backend-auth/protocol/openid-connect/certs
-
   KEYCLOAK_INTERNAL_URL: http://backend-keycloak-server.default.svc.cluster.local:8080
   KEYCLOAK_ADMIN_REALM: master
   KEYCLOAK_ACCOUNT_SERVICE_ADMIN_CLIENT_ID: account-service-admin
