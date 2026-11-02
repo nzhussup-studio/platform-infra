@@ -44,4 +44,4 @@ spec:
     - protocol: TCP
       port: 777
       targetPort: 45321
-  type: NodePort
+  type: ClusterIP
