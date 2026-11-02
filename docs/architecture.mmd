@@ -20,11 +20,11 @@ flowchart TB
 
       subgraph base_row["BASE SERVICE"]
         direction LR
-        base["Base Service<br/>/v1/base · :8010"] --> base_dependencies["Redis<br/>PostgreSQL<br/>GitHub API"]
+        base["Base Service<br/>public content + /v1/admin · :8010"] --> base_dependencies["Redis<br/>PostgreSQL<br/>GitHub API"]
       end
       subgraph image_row["IMAGE SERVICE"]
         direction LR
-        image["Image Service<br/>/v1/album · :8085"] --> image_dependencies["Redis · shared cache<br/>Image PV"]
+        image["Image Service<br/>/v1/albums · :8085"] --> image_dependencies["Redis · shared cache<br/>Image PV"]
       end
       subgraph llm_row["LLM SERVICE"]
         direction LR
@@ -32,7 +32,7 @@ flowchart TB
       end
       subgraph account_row["ACCOUNT SERVICE"]
         direction LR
-        account["Account Service<br/>/v1/account · :8087"] --> account_dependencies["Keycloak"]
+        account["Account Service<br/>/v1/me/account · :8087"] --> account_dependencies["Keycloak"]
       end
 
       api_routes --> base

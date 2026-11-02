@@ -17,6 +17,14 @@ spec:
           image: nzhussup/backend-base-service:latest
           ports:
             - containerPort: 8010
+          readinessProbe:
+            httpGet: { path: /healthz, port: 8010 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket: { port: 8010 }
+            initialDelaySeconds: 15
+            periodSeconds: 20
           resources:
             requests:
               cpu: 20m

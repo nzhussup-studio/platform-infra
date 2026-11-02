@@ -6,6 +6,9 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
+      name: api-preflight
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
       name: api-public
   cors:
     allowOrigins:
@@ -18,12 +21,12 @@ spec:
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: SecurityPolicy
 metadata:
-  name: api-protected-jwt
+  name: api-user-jwt
 spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: api-protected
+      name: api-user
   cors:
     allowOrigins:
       - https://nzhussup.dev

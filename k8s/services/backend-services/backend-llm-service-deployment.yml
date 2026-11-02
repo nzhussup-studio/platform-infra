@@ -17,6 +17,14 @@ spec:
           image: nzhussup/backend-llm-service:latest
           ports:
             - containerPort: 8086
+          readinessProbe:
+            httpGet: { path: /healthz, port: 8086 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket: { port: 8086 }
+            initialDelaySeconds: 15
+            periodSeconds: 20
           resources:
             requests:
               cpu: 2m
