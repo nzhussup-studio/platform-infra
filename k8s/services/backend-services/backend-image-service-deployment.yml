@@ -30,7 +30,7 @@ spec:
               cpu: 50m
               memory: 256Mi
             limits:
-              cpu: 500m
+              cpu: "1"
               memory: 1Gi
           volumeMounts:
             - name: images-volume
@@ -63,7 +63,7 @@ spec:
             - name: IMAGE_MAX_UPLOAD_COUNT
               value: "50"
             - name: IMAGE_MAX_CONCURRENT_UPLOADS
-              value: "1"
+              value: "2"
             - name: IMAGE_RESIZE_WIDTH
               value: "800"
             - name: IMAGE_JPEG_QUALITY
