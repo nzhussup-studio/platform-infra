@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/nzhussup/server-infra/compare/v2.0.0...v2.1.0) (2026-11-10)
+
+
+### Features
+
+* add api base URL as envvar ([46bd807](https://github.com/nzhussup/server-infra/commit/46bd80720881dd9cabff84fd056bec5701cced9b))
+* add startup probe for base service ([5ef57d3](https://github.com/nzhussup/server-infra/commit/5ef57d3ce45e7dfe25f18fe554aabcdcc867e65e))
+
 ## [2.0.0](https://github.com/nzhussup/server-infra/compare/v1.8.0...v2.0.0) (2026-10-14)
 
 
