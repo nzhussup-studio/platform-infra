@@ -26,8 +26,8 @@ data:
   KEYCLOAK_FRONTEND_CLIENT_NAME: Frontend Admin Auth Client
   KEYCLOAK_FRONTEND_ROOT_URL: https://admin.nzhussup.dev
   KEYCLOAK_FRONTEND_BASE_URL: https://admin.nzhussup.dev
-  KEYCLOAK_FRONTEND_REDIRECT_URIS_JSON: '["https://admin.nzhussup.dev/*","https://admin.nzhussup.com/*","https://nzhussup.dev/*","https://nzhussup.com/*"]'
-  KEYCLOAK_FRONTEND_WEB_ORIGINS_JSON: '["https://admin.nzhussup.dev","https://admin.nzhussup.com","https://nzhussup.dev","https://nzhussup.com"]'
+  KEYCLOAK_FRONTEND_REDIRECT_URIS_JSON: '["https://admin.nzhussup.dev/*","https://admin.nzhussup.com/*","https://study.nzhussup.dev/*","https://nzhussup.dev/*","https://nzhussup.com/*"]'
+  KEYCLOAK_FRONTEND_WEB_ORIGINS_JSON: '["https://admin.nzhussup.dev","https://admin.nzhussup.com","https://study.nzhussup.dev","https://nzhussup.dev","https://nzhussup.com"]'
 
   KEYCLOAK_INTERNAL_URL: http://backend-keycloak-server.default.svc.cluster.local:8080
   KEYCLOAK_ADMIN_REALM: master
